@@ -25,6 +25,8 @@ def convert(val: float, from_cur: str, to_cur: str) -> Dict[str, Any]:
     return {
         "valid": True,
         "title": f"{formatted_result} {to_cur}",
+        "arg": f"{formatted_result} {to_cur}",
+        "text": {"largetype": f"{formatted_result} {to_cur}"},
         "subtitle": f"{formatted_val} {CURRENCIES[from_cur]} in {CURRENCIES[to_cur]}",
     }
 
