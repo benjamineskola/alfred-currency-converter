@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import json
 import os.path
-import subprocess
 import sys
 import time
+import urllib.request
 from typing import Any, Dict, List, Optional
 
 CURRENCIES = json.load(open("currencies.json"))
@@ -13,8 +13,8 @@ FAVOURITE_CURRENCIES = ["EUR", "GBP", "USD"]
 
 # would be nicer to use requests, but that may not be available.
 def fetch(url: str) -> Any:
-    response = subprocess.run(["/usr/bin/curl", "-gkLsS", url], capture_output=True)
-    return json.loads(response.stdout)
+    response = urllib.request.urlopen(url)
+    return json.loads(response.read())
 
 
 def convert(val: float, from_cur: str, to_cur: str) -> Dict[str, Any]:
