@@ -20,8 +20,13 @@ def fetch(url: str) -> Any:
 def convert(val: float, from_cur: str, to_cur: str) -> Dict[str, Any]:
     rate = RATES[from_cur][to_cur]
     result = val * rate
+    formatted_val = f"{val:.2f}".replace(".00", "")
     formatted_result = f"{result:.2f}".replace(".00", "")
-    return {"valid": True, "title": f"{formatted_result} {to_cur}"}
+    return {
+        "valid": True,
+        "title": f"{formatted_result} {to_cur}",
+        "subtitle": f"{formatted_val} {CURRENCIES[from_cur]} in {CURRENCIES[to_cur]}",
+    }
 
 
 def main(
