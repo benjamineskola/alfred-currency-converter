@@ -39,11 +39,12 @@ def update_rates(curs: List[str]) -> None:
     now = time.time()
 
     for cur in curs:
-        if cur not in RATES or RATES[cur]["timestamp"] < now - 86400:
+        if cur not in RATES or RATES[cur]["timestamp"] < now:
             print(f"updating {cur}", file=sys.stderr)
+            data = fetch(f"https://open.er-api.com/v6/latest/{cur}")
             RATES[cur] = {
-                "timestamp": now,
-                "rates": fetch(f"https://open.er-api.com/v6/latest/{cur}")["rates"],
+                "timestamp": data["time_next_update_unix"],
+                "rates": data["rates"],
             }
             save_rates = True
 
