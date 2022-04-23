@@ -43,9 +43,7 @@ def update_rates(curs: List[str]) -> None:
             print(f"updating {cur}", file=sys.stderr)
             RATES[cur] = {
                 "timestamp": now,
-                "rates": fetch(f"https://api.exchangerate-api.com/v4/latest/{cur}")[
-                    "rates"
-                ],
+                "rates": fetch(f"https://open.er-api.com/v6/latest/{cur}")["rates"],
             }
             save_rates = True
 
